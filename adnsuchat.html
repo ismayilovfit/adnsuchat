@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADNSU CHAT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .chat-container {
+            width: 400px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .header {
+            background: #0072ff;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .chat-box {
+            height: 300px;
+            padding: 10px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ccc;
+        }
+        .message {
+            padding: 8px;
+            margin: 8px 0;
+            border-radius: 5px;
+            max-width: 80%;
+        }
+        .message.user {
+            background: #0072ff;
+            color: white;
+            align-self: flex-end;
+            text-align: right;
+        }
+        .message.bot {
+            background: #f1f1f1;
+            align-self: flex-start;
+            text-align: left;
+        }
+        .username {
+            font-weight: bold;
+            display: block;
+            font-size: 12px;
+        }
+        .input-box {
+            display: flex;
+            padding: 10px;
+        }
+        .input-box input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .input-box button {
+            background: #0072ff;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-left: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="header">ADNSU CHAT</div>
+        <div class="chat-box" id="chat-box"></div>
+        <div class="input-box">
+            <input type="text" id="username" placeholder="Adınız..." style="width: 30%; margin-right: 5px;">
+            <input type="text" id="message" placeholder="Mesajınızı yazın...">
+            <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+    <script>
+        function sendMessage() {
+            const messageInput = document.getElementById('message');
+            const usernameInput = document.getElementById('username');
+            const chatBox = document.getElementById('chat-box');
+            
+            if (messageInput.value.trim() === '' || usernameInput.value.trim() === '') return;
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', 'user');
+            
+            const usernameSpan = document.createElement('span');
+            usernameSpan.classList.add('username');
+            usernameSpan.textContent = usernameInput.value;
+            
+            messageDiv.appendChild(usernameSpan);
+            messageDiv.appendChild(document.createTextNode(messageInput.value));
+            
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            messageInput.value = '';
+        }
+    </script>
+</body>
+</html>
